@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adib Prottay - Portfolio</title>
     
-    <!-- 1. Tailwind CSS (Styling) -->
+    <!-- 
+       LIBRARIES & DEPENDENCIES
+       ------------------------
+       1. Tailwind CSS: Handles all the styling (colors, spacing, layout).
+       2. Lucide Icons: Provides the icons (briefcase, phone, etc.).
+       3. Google Fonts: Loads the 'Inter' font family.
+    -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- 3. Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- 4. Custom Configurations -->
+    <!-- 
+       CUSTOM CONFIGURATION
+       --------------------
+       This section sets up your custom colors to match the design.
+       You can change the hex codes below to change the site's color theme.
+    -->
     <script>
         tailwind.config = {
             theme: {
@@ -23,14 +30,27 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#2563eb', // Blue-600
-                        primaryDark: '#1d4ed8', // Blue-700
+                        // Main Brand Color (Blue)
+                        primary: '#2563eb',       
+                        primaryDark: '#1d4ed8',   
+                        
+                        // Dark Blue for Modal Header
+                        darkBlue: '#0f172a',      
+                        
+                        // Accent Color for Success/Checkmarks (Green)
+                        accentGreen: '#10b981',   
+                        
+                        // Grayscale Palette
                         slate: {
                             50: '#f8fafc',
                             100: '#f1f5f9',
+                            200: '#e2e8f0',
                             800: '#1e293b',
                             900: '#0f172a',
                         }
+                    },
+                    borderRadius: {
+                        '4xl': '2.5rem', // For the curved header effect
                     }
                 }
             }
@@ -38,38 +58,35 @@
     </script>
     
     <style>
-        /* Smooth scrolling for anchor links */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Hide scrollbar for cleaner look if needed */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
-        }
+        /* CSS for smooth scrolling and scrollbar styling */
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Animation classes for the Modal */
+        #project-modal { transition: opacity 0.3s ease-in-out; }
+        #project-modal.hidden { opacity: 0; pointer-events: none; }
+        #project-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased relative">
 
-    <!-- NAVIGATION -->
+    <!-- 
+       ==========================================================================
+       NAVIGATION BAR
+       ==========================================================================
+    -->
     <nav class="sticky top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
+                <!-- LOGO: Change 'AP' to your initials -->
                 <div class="flex-shrink-0 flex items-center cursor-pointer">
                     <a href="#home" class="text-2xl font-bold text-primary">AP</a>
                 </div>
                 
-                <!-- Desktop Menu -->
+                <!-- DESKTOP MENU LINKS -->
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="text-slate-600 hover:text-primary px-1 py-2 text-sm font-medium transition-colors">Home</a>
                     <a href="#about" class="text-slate-600 hover:text-primary px-1 py-2 text-sm font-medium transition-colors">About</a>
@@ -79,7 +96,7 @@
                     <a href="#skills" class="text-slate-600 hover:text-primary px-1 py-2 text-sm font-medium transition-colors">Skills</a>
                 </div>
 
-                <!-- Mobile Menu Button -->
+                <!-- MOBILE MENU BUTTON (Do not edit logic, styling only) -->
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none">
                         <i data-lucide="menu" class="w-6 h-6"></i>
@@ -88,7 +105,7 @@
             </div>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
+        <!-- MOBILE MENU DROPDOWN -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="block w-full text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md mobile-link">Home</a>
@@ -101,17 +118,28 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- 
+       ==========================================================================
+       EDITABLE SECTION: HERO (Top Banner)
+       ==========================================================================
+    -->
     <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-24 px-4 bg-gradient-to-br from-slate-50 to-blue-50">
         <div class="max-w-7xl mx-auto text-center">
+            
+            <!-- NAME -->
             <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">Adib Prottay</h1>
+            
+            <!-- JOB TITLES -->
             <p class="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
                 Mechanical Engineer | Researcher | Robotics Enthusiast
             </p>
+            
+            <!-- SHORT BIO -->
             <p class="text-md md:text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
                 Specializing in Thermal Engineering, Renewable Energy Systems, Robotics & Control, and Composite Materials.
             </p>
             
+            <!-- SOCIAL LINKS (Edit 'href' attributes) -->
             <div class="flex justify-center space-x-4 mb-12">
                 <a href="mailto:adibprottay.me18@gmail.com" class="p-3 bg-white rounded-full shadow-md hover:shadow-lg hover:text-primary transition-all">
                     <i data-lucide="mail" class="w-6 h-6"></i>
@@ -119,29 +147,35 @@
                 <a href="https://linkedin.com/in/adib-prottay" target="_blank" class="p-3 bg-white rounded-full shadow-md hover:shadow-lg hover:text-primary transition-all">
                     <i data-lucide="linkedin" class="w-6 h-6"></i>
                 </a>
-                <a href="tel:+8801631383842" class="p-3 bg-white rounded-full shadow-md hover:shadow-lg hover:text-primary transition-all" title="Phone: +880 163 138 3842">
+                <a href="tel:+8801631383842" class="p-3 bg-white rounded-full shadow-md hover:shadow-lg hover:text-primary transition-all">
                     <i data-lucide="phone" class="w-6 h-6"></i>
                 </a>
             </div>
 
+            <!-- BUTTON -->
             <a href="#projects" class="inline-block bg-primary text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-primaryDark hover:shadow-xl transition-all transform hover:-translate-y-1">
                 View My Work
             </a>
         </div>
     </section>
 
-    <!-- ABOUT / EDUCATION -->
+    <!-- 
+       ==========================================================================
+       EDITABLE SECTION: ABOUT (Education & Interests)
+       ==========================================================================
+    -->
     <section id="about" class="py-16 bg-white scroll-mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12">
                 
-                <!-- Education -->
+                <!-- EDUCATION COLUMN -->
                 <div>
                     <div class="flex items-center mb-8">
                         <i data-lucide="graduation-cap" class="text-primary w-8 h-8 mr-3"></i>
                         <h2 class="text-3xl font-bold text-slate-900">Education</h2>
                     </div>
                     
+                    <!-- DEGREE BLOCK -->
                     <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                         <h3 class="text-xl font-bold text-slate-800">Bangladesh University of Engineering and Technology (BUET)</h3>
                         <p class="text-primary font-medium mt-1">Bachelor of Science in Mechanical Engineering</p>
@@ -151,22 +185,19 @@
                         </div>
                         <div class="mt-4 pt-4 border-t border-slate-200">
                             <p class="font-semibold text-slate-700 mb-2">Thesis:</p>
-                            <p class="text-slate-600 text-sm">
-                                Thermodynamic and exergo-economic analysis of a transcritical CO₂ cycle integrated with a central tower system.
-                                <br />
-                                <span class="italic text-xs mt-1 block">Supervisor: Dr. Md. Zahurul Haq</span>
-                            </p>
+                            <p class="text-slate-600 text-sm">Thermodynamic and exergo-economic analysis of a transcritical CO₂ cycle integrated with a central tower system.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Research Interests -->
+                <!-- RESEARCH INTERESTS COLUMN -->
                 <div>
                     <div class="flex items-center mb-8">
                         <i data-lucide="book-open" class="text-primary w-8 h-8 mr-3"></i>
                         <h2 class="text-3xl font-bold text-slate-900">Research Interests</h2>
                     </div>
                     
+                    <!-- LIST OF INTERESTS -->
                     <div class="grid grid-cols-1 gap-4">
                         <div class="flex items-center p-4 bg-slate-50 rounded-lg border border-slate-200">
                             <i data-lucide="chevron-right" class="text-primary w-5 h-5 mr-2"></i>
@@ -185,32 +216,26 @@
                             <span class="font-medium text-slate-700">Composite Materials</span>
                         </div>
                     </div>
-
-                    <div class="mt-8">
-                        <h3 class="text-lg font-bold text-slate-900 mb-4">English Proficiency</h3>
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 flex justify-between items-center">
-                            <div>
-                                <span class="font-semibold text-slate-800 block">IELTS Academic</span>
-                                <span class="text-sm text-slate-500">Overall Band Score</span>
-                            </div>
-                            <div class="text-2xl font-bold text-primary">7.0</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- EXPERIENCE SECTION -->
+    <!-- 
+       ==========================================================================
+       EDITABLE SECTION: EXPERIENCE
+       ==========================================================================
+    -->
     <section id="experience" class="py-16 bg-slate-50 scroll-mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-12">
                 <i data-lucide="briefcase" class="text-primary w-8 h-8 mr-3"></i>
                 <h2 class="text-3xl font-bold text-slate-900">Professional Experience</h2>
             </div>
-
+            
             <div class="space-y-8">
-                <!-- Job 1 -->
+                
+                <!-- JOB ENTRY 1 -->
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 relative overflow-hidden group">
                     <div class="absolute top-0 left-0 w-2 h-full bg-primary"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -218,9 +243,7 @@
                             <h3 class="text-2xl font-bold text-slate-800">Facilities Engineering Intern</h3>
                             <p class="text-lg text-primary font-medium">Chevron Bangladesh</p>
                         </div>
-                        <div class="mt-2 md:mt-0 px-4 py-1 bg-slate-100 rounded-full text-slate-600 text-sm font-medium">
-                            March 2025 - July 2025
-                        </div>
+                        <div class="mt-2 md:mt-0 px-4 py-1 bg-slate-100 rounded-full text-slate-600 text-sm font-medium">March 2025 - July 2025</div>
                     </div>
                     <p class="text-slate-500 mb-4">Sylhet, Bangladesh</p>
                     <ul class="list-disc list-inside space-y-2 text-slate-600">
@@ -229,7 +252,7 @@
                     </ul>
                 </div>
 
-                <!-- Job 2 -->
+                <!-- JOB ENTRY 2 -->
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 relative overflow-hidden group">
                     <div class="absolute top-0 left-0 w-2 h-full bg-slate-400"></div>
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -237,209 +260,127 @@
                             <h3 class="text-2xl font-bold text-slate-800">Industrial Trainee</h3>
                             <p class="text-lg text-slate-600 font-medium">North West Power Generation Company Limited (NWPGCL)</p>
                         </div>
-                        <div class="mt-2 md:mt-0 px-4 py-1 bg-slate-100 rounded-full text-slate-600 text-sm font-medium">
-                            November 2023
-                        </div>
+                        <div class="mt-2 md:mt-0 px-4 py-1 bg-slate-100 rounded-full text-slate-600 text-sm font-medium">November 2023</div>
                     </div>
-                    <p class="text-slate-500 mb-4">Sirajganj, Bangladesh</p>
                     <ul class="list-disc list-inside space-y-2 text-slate-600">
                         <li>Completed comprehensive training on Combined Cycle Power Plant (CCPP) operations.</li>
                         <li>Gained hands-on knowledge of Gas Turbines, HRSG, Steam Turbines, and Cooling Towers.</li>
-                    </ul>
-                </div>
-
-                <!-- Extra Curricular -->
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-slate-400"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold text-slate-800">General Secretary</h3>
-                            <p class="text-lg text-slate-600 font-medium">BUET Robotics Society</p>
-                        </div>
-                        <div class="mt-2 md:mt-0 px-4 py-1 bg-slate-100 rounded-full text-slate-600 text-sm font-medium">
-                            June 2023 - June 2024
-                        </div>
-                    </div>
-                    <ul class="list-disc list-inside space-y-2 text-slate-600">
-                        <li>Organized workshops on Image Processing, Trash Collector Robots, and ML Mastery.</li>
-                        <li>Executed Robo Carnival 2024, drawing 400+ participants from 15 universities.</li>
-                        <li>Collaborated with ICT Division and Ministry of Science & Technology to promote robotics culture.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
+    <!-- 
+       ==========================================================================
+       SECTION: PROJECTS (Dynamic)
+       NOTE: To edit projects, scroll down to the <script> tag at the bottom 
+       and edit the 'projectsData' variable.
+       ==========================================================================
+    -->
     <section id="projects" class="py-16 bg-white scroll-mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-12">
                 <i data-lucide="cpu" class="text-primary w-8 h-8 mr-3"></i>
                 <h2 class="text-3xl font-bold text-slate-900">Featured Projects</h2>
             </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Project 1 -->
-                <div class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <div class="p-6 flex-grow">
-                        <div class="text-xs font-bold text-primary uppercase tracking-wider mb-2">Review & Analysis</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Ramie Fiber Composites</h3>
-                        <p class="text-slate-600 text-sm mb-4">
-                            Comprehensive review on Ramie fiber morphology, mechanics, and extraction. Analyzed surface treatments for enhancing fiber-matrix interactions.
-                        </p>
-                        <div class="text-xs text-slate-500 italic mb-2">Collab: Rice University & University of Houston</div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <div class="p-6 flex-grow">
-                        <div class="text-xs font-bold text-primary uppercase tracking-wider mb-2">Simulation (Python)</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Magneto-Elastic Millirobot</h3>
-                        <p class="text-slate-600 text-sm mb-4">
-                            Developed a Python physics engine to simulate large-deformation multimodal locomotion. Solved non-linear Euler-Bernoulli beam equations.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-2">
-                           <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs">Python</span>
-                           <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs">Scipy</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <div class="p-6 flex-grow">
-                        <div class="text-xs font-bold text-primary uppercase tracking-wider mb-2">Control Theory</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Soft Jellyfish Robotics</h3>
-                        <p class="text-slate-600 text-sm mb-4">
-                            Modeled non-linear hydrodynamics for HASEL-actuated robots. Designed a closed-loop PID controller achieving stable hovering.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-2">
-                           <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs">PID Control</span>
-                           <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs">NumPy</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <div class="p-6 flex-grow">
-                        <div class="text-xs font-bold text-primary uppercase tracking-wider mb-2">Robotics Hardware</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Bio-Inspired Hexapod</h3>
-                        <p class="text-slate-600 text-sm mb-4">
-                            Designed and fabricated a hexapod with high-speed dynamic tripod gait. Optimized foot-end trajectories and validated torque requirements.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col">
-                    <div class="p-6 flex-grow">
-                        <div class="text-xs font-bold text-primary uppercase tracking-wider mb-2">Thermal Engineering</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Radiator Design for Trucks</h3>
-                        <p class="text-slate-600 text-sm mb-4">
-                            Designed and evaluated a cost-effective aluminum radiator for Eicher Trucks. Used NTU-effectiveness methods for heat transfer predictions.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <!-- The Javascript code below populates this container -->
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </section>
 
-    <!-- PUBLICATIONS SECTION -->
+    <!-- 
+       ==========================================================================
+       EDITABLE SECTION: PUBLICATIONS
+       ==========================================================================
+    -->
     <section id="publications" class="py-16 bg-slate-50 scroll-mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-12">
                 <i data-lucide="file-text" class="text-primary w-8 h-8 mr-3"></i>
                 <h2 class="text-3xl font-bold text-slate-900">Publications</h2>
             </div>
-
             <div class="space-y-6">
+                
+                <!-- PUBLICATION 1 -->
                 <div class="bg-white p-6 rounded-lg border-l-4 border-primary shadow-sm">
                     <h4 class="font-bold text-lg text-slate-800">Ramie Fiber: From Plants to Fiber Reinforced Structural and Functional Composites</h4>
                     <p class="text-slate-600 mt-1">Saadi, M.A.S.R., <strong>Prottay, A.</strong>, Nur, M.I., Rahman, M.M.</p>
                     <p class="text-sm text-slate-500 mt-2 italic">Review manuscript in preparation (Collaboration with Rice University & University of Houston).</p>
                 </div>
 
+                <!-- PUBLICATION 2 -->
                 <div class="bg-white p-6 rounded-lg border-l-4 border-slate-400 shadow-sm">
                     <h4 class="font-bold text-lg text-slate-800">The Design and Optimization of a High-Performance Radiator for Eicher Trucks</h4>
                     <p class="text-slate-600 mt-1"><strong>Prottay, A.</strong>, Deep, S.S., Ahmed, F. and Zaman, M.T.</p>
                     <p class="text-sm text-slate-500 mt-2">The 9th BSME International Conference on Thermal Engineering, BUET (December 2024).</p>
                 </div>
-
-                <div class="bg-white p-6 rounded-lg border-l-4 border-slate-400 shadow-sm">
-                    <h4 class="font-bold text-lg text-slate-800">Design, Fabrication and Gait Analysis of a Dynamic Hexapod</h4>
-                    <p class="text-slate-600 mt-1"><strong>Prottay, A.</strong>, Md. Nazib, A.A., Deep, S.S. and Ahmed, F.</p>
-                    <p class="text-sm text-slate-500 mt-2">Proceedings of 8th ICMIEE, KUET (2025).</p>
-                    <a href="https://doi.org/10.38032/scse.2025.3.137" target="_blank" class="inline-flex items-center mt-3 text-primary hover:underline text-sm">
-                        View DOI <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- SKILLS SECTION -->
+    <!-- 
+       ==========================================================================
+       EDITABLE SECTION: SKILLS
+       ==========================================================================
+    -->
     <section id="skills" class="py-16 bg-white scroll-mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-12">
                 <i data-lucide="wrench" class="text-primary w-8 h-8 mr-3"></i>
                 <h2 class="text-3xl font-bold text-slate-900">Technical Skills</h2>
             </div>
-
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- SKILL CATEGORY: Programming -->
                 <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
                     <h3 class="font-bold text-lg mb-4 text-primaryDark">Programming</h3>
                     <ul class="space-y-2 text-slate-700">
                         <li>Python (NumPy, SciPy)</li>
-                        <li>MATLAB</li>
-                        <li>C</li>
+                        <li>MATLAB, C</li>
                         <li>PID Control</li>
                     </ul>
                 </div>
 
+                <!-- SKILL CATEGORY: Mechanics -->
                 <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
                     <h3 class="font-bold text-lg mb-4 text-primaryDark">Mechanics</h3>
                     <ul class="space-y-2 text-slate-700">
                         <li>Computational Mechanics</li>
                         <li>Soft Body Dynamics</li>
                         <li>Magneto-Elastic Coupling</li>
-                        <li>Robotics</li>
                     </ul>
                 </div>
 
+                <!-- SKILL CATEGORY: Software -->
                 <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
-                    <h3 class="font-bold text-lg mb-4 text-primaryDark">Software & CAD</h3>
+                    <h3 class="font-bold text-lg mb-4 text-primaryDark">Software</h3>
                     <ul class="space-y-2 text-slate-700">
-                        <li>AutoCAD</li>
-                        <li>SolidWorks</li>
-                        <li>Pandas</li>
-                        <li>Matplotlib</li>
+                        <li>AutoCAD, SolidWorks</li>
+                        <li>Pandas, Matplotlib</li>
                     </ul>
                 </div>
 
+                <!-- SKILL CATEGORY: Manufacturing -->
                 <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
                     <h3 class="font-bold text-lg mb-4 text-primaryDark">Manufacturing</h3>
                     <ul class="space-y-2 text-slate-700">
-                        <li>CNC & Lathe</li>
-                        <li>3D Printing</li>
-                        <li>Arduino</li>
-                        <li>Welding (TIG/MIG)</li>
+                        <li>CNC & Lathe, 3D Printing</li>
+                        <li>Arduino, Welding</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!-- 
+       ==========================================================================
+       EDITABLE SECTION: CONTACT
+       ==========================================================================
+    -->
     <section id="contact" class="py-20 bg-slate-900 text-white scroll-mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold mb-8">Get In Touch</h2>
-            <p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
-                I'm currently open to research collaborations and engineering opportunities.
-            </p>
-            
             <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-12">
                 <a href="mailto:adibprottay.me18@gmail.com" class="flex items-center gap-3 bg-slate-800 px-6 py-4 rounded-lg hover:bg-slate-700 transition-colors">
                     <i data-lucide="mail" class="text-blue-400 w-6 h-6"></i>
@@ -449,41 +390,307 @@
                     <i data-lucide="linkedin" class="text-blue-400 w-6 h-6"></i>
                     <span class="text-lg">linkedin.com/in/adib-prottay</span>
                 </a>
-                <div class="flex items-center gap-3 bg-slate-800 px-6 py-4 rounded-lg">
-                    <i data-lucide="phone" class="text-blue-400 w-6 h-6"></i>
-                    <span class="text-lg">+880 163 138 3842</span>
-                </div>
             </div>
-
             <div class="pt-8 border-t border-slate-800 text-slate-500 text-sm">
                 © <span id="year"></span> Adib Prottay. All rights reserved.
             </div>
         </div>
     </section>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- 
+       ==========================================================================
+       MODAL STRUCTURE (Hidden by default)
+       This is the 'template' for the popup. Content is injected via Javascript.
+       ==========================================================================
+    -->
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden bg-white overflow-y-auto">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="fixed top-6 right-6 z-[110] bg-white/10 backdrop-blur-md p-2 rounded-full text-white hover:bg-white/20 transition-all border border-white/20">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+
+        <!-- 1. Modal Header (Dark Blue + Curved) -->
+        <div class="bg-darkBlue pt-24 pb-20 relative rounded-b-[3rem] px-4 shadow-xl overflow-hidden">
+             <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+             <div class="max-w-6xl mx-auto text-center md:text-left relative z-10">
+                <span id="modal-category" class="inline-block px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold tracking-wider uppercase mb-6"></span>
+                <h1 id="modal-title" class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight"></h1>
+                <p id="modal-summary" class="text-slate-400 text-lg md:text-xl max-w-2xl"></p>
+             </div>
+        </div>
+
+        <!-- 2. Meta Data Row -->
+        <div class="max-w-6xl mx-auto px-4 -mt-8 relative z-20">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-8 flex flex-col md:flex-row justify-between gap-8 items-start md:items-center">
+                <!-- Role -->
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0"><i data-lucide="user" class="w-6 h-6"></i></div>
+                    <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Role</p><p id="modal-role" class="text-slate-800 font-semibold"></p></div>
+                </div>
+                <!-- Tech Stack -->
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0"><i data-lucide="code-2" class="w-6 h-6"></i></div>
+                    <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Tech Stack</p><p id="modal-tech" class="text-slate-800 font-semibold"></p></div>
+                </div>
+                <!-- Timeline -->
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0"><i data-lucide="calendar" class="w-6 h-6"></i></div>
+                    <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Timeline</p><p id="modal-timeline" class="text-slate-800 font-semibold"></p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Main Content Grid -->
+        <div class="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-5 gap-12">
+            <!-- LEFT COLUMN (Text Content) -->
+            <div class="lg:col-span-2 space-y-10">
+                <div>
+                    <div class="flex items-center gap-2 mb-4 border-l-4 border-primary pl-4"><h3 class="text-2xl font-bold text-slate-900">Project Overview</h3></div>
+                    <div id="modal-description" class="text-slate-600 leading-relaxed text-lg"></div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 mb-6 border-l-4 border-primary pl-4"><h3 class="text-2xl font-bold text-slate-900">Key Achievements</h3></div>
+                    <div id="modal-achievements" class="space-y-4"></div>
+                </div>
+                <div class="pt-8">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Technologies</p>
+                    <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+            <!-- RIGHT COLUMN (Media Placeholders) -->
+            <div class="lg:col-span-3 space-y-6">
+                 <div class="aspect-video bg-slate-100 rounded-2xl border border-slate-200 flex flex-col items-center justify-center text-slate-400 shadow-sm relative overflow-hidden group">
+                     <div class="absolute inset-0 bg-slate-200/50 group-hover:bg-slate-200/30 transition-colors"></div>
+                     <i data-lucide="play-circle" class="w-16 h-16 text-slate-300 group-hover:text-primary transition-colors mb-2 z-10"></i>
+                     <span class="text-sm font-medium z-10">Simulation Demo (Placeholder)</span>
+                 </div>
+                 <div class="grid grid-cols-2 gap-6">
+                    <div class="aspect-square bg-slate-50 rounded-2xl border border-slate-200 flex flex-col items-center justify-center text-slate-400 shadow-sm p-4 text-center">
+                        <i data-lucide="activity" class="w-8 h-8 mb-2 text-slate-300"></i><span class="text-xs">Control Diagram</span>
+                    </div>
+                    <div class="aspect-square bg-slate-50 rounded-2xl border border-slate-200 flex flex-col items-center justify-center text-slate-400 shadow-sm p-4 text-center">
+                        <i data-lucide="bar-chart-2" class="w-8 h-8 mb-2 text-slate-300"></i><span class="text-xs">Force Analysis Graph</span>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+       ==========================================================================
+       JAVASCRIPT LOGIC
+       ==========================================================================
+    -->
     <script>
         // 1. Initialize Icons
         lucide.createIcons();
-
-        // 2. Set Current Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // 3. Mobile Menu Toggle
+        // ==========================================================================
+        // CONTENT DATA - EDIT THIS SECTION TO CHANGE PROJECT DETAILS
+        // ==========================================================================
+        
+        const projectsData = [
+            // --- PROJECT 1 ---
+            {
+                id: 1,
+                title: "Bio-Inspired Soft Jellyfish Robotics",
+                subtitle: "Simulation of HASEL-actuated platforms using recursive kinematic chains.",
+                category: "Robotics & Control Theory",
+                role: "Independent Researcher",
+                techStack: "Python, NumPy, PID Control",
+                timeline: "2023 - 2024",
+                tags: ["Python", "SciPy", "Control Theory", "Hydrodynamics"],
+                // Description can contain simple text
+                description: "This project focused on replicating the mechanics of HASEL-actuated jellyfish platforms. I modeled non-linear hydrodynamics and implemented a recursive kinematic chain to accurately simulate soft-body deformation under various fluid conditions.",
+                // Achievements are displayed as checkmark cards
+                achievements: [
+                    {
+                        title: "Dynamics Modeling",
+                        desc: "Derived an effective mass model accounting for fluid added-mass and net buoyancy to predict vertical acceleration."
+                    },
+                    {
+                        title: "Closed-Loop Control",
+                        desc: "Designed a PID controller achieving stable hovering with <1% steady-state error."
+                    },
+                    {
+                        title: "Robust Tracking",
+                        desc: "Achieved trajectory tracking under actuation constraints with a 0.1-2.5 Hz bandwidth."
+                    }
+                ]
+            },
+            
+            // --- PROJECT 2 ---
+            {
+                id: 2,
+                title: "Magneto-Elastic Millirobot Simulation",
+                subtitle: "Physics engine for large-deformation multimodal locomotion.",
+                category: "Computational Mechanics",
+                role: "Independent Researcher",
+                techStack: "Python, SciPy, Physics Engine",
+                timeline: "2023",
+                tags: ["Python", "Mechanics", "Simulation"],
+                description: "Replicated the mechanics of a magneto-elastic millirobot based on Hu et al., Nature 2018. Developed a physics engine to simulate locomotion modes.",
+                achievements: [
+                    { title: "Numerical Solver", desc: "Solved non-linear Euler-Bernoulli beam equations with magnetic torque coupling." },
+                    { title: "Bifurcation Modeling", desc: "Successfully modeled 'C' and 'V' shape bifurcations under external magnetic fields." },
+                    { title: "Validation", desc: "Comparative analysis showed R² > 0.95 against experimental data for rolling speeds." }
+                ]
+            },
+
+            // --- PROJECT 3 ---
+            {
+                id: 3,
+                title: "Ramie Fiber Composites Review",
+                subtitle: "Comprehensive analysis of fiber reinforced structural composites.",
+                category: "Material Science Review",
+                role: "Co-Author",
+                techStack: "Research, Data Analysis",
+                timeline: "2024 - Present",
+                tags: ["Composites", "Material Science", "Sustainability"],
+                description: "A comprehensive review on Ramie fiber morphology, mechanics, and extraction, highlighting its potential as a sustainable alternative to synthetic materials.",
+                achievements: [
+                    { title: "Surface Treatment Analysis", desc: "Analyzed alkali, silane, and enzymatic treatments for enhancing fiber-matrix interactions." },
+                    { title: "Cross-Sector Application", desc: "Investigated applications in automotive, construction, and biomedical sectors." },
+                    { title: "Future Roadmap", desc: "Outlined research directions for novel matrix materials and circular economy." }
+                ]
+            },
+
+            // --- PROJECT 4 ---
+            {
+                id: 4,
+                title: "Bio-Inspired Hexapod Robot",
+                subtitle: "Design and fabrication of a dynamic hexapod.",
+                category: "Robotics Hardware",
+                role: "Lead Designer",
+                techStack: "SolidWorks, Arduino, C++",
+                timeline: "2023",
+                tags: ["Hardware", "Mechatronics", "Gait Analysis"],
+                description: "Designed and built a fully operational hexapod robot with a high-speed dynamic tripod gait for stability and efficient motion.",
+                achievements: [
+                    { title: "Gait Optimization", desc: "Optimized foot-end trajectories for effective leg coordination." },
+                    { title: "Fabrication", desc: "Built the robot from scratch, demonstrating mechanical design and electronics expertise." }
+                ]
+            },
+
+            // --- PROJECT 5 ---
+            {
+                id: 5,
+                title: "High-Performance Radiator",
+                subtitle: "Thermal optimization for Eicher trucks.",
+                category: "Thermal Engineering",
+                role: "Project Lead",
+                techStack: "Heat Transfer, NTU Method",
+                timeline: "2024",
+                tags: ["Thermal", "Automotive", "Optimization"],
+                description: "Designed and evaluated a cost-effective aluminum radiator for heavy-duty trucks to handle extreme heat loads.",
+                achievements: [
+                    { title: "Performance Prediction", desc: "Used convection and NTU-effectiveness methods for accurate thermal predictions." },
+                    { title: "Cost Analysis", desc: "Identified material trade-offs between aluminum tanks and durability." }
+                ]
+            }
+        ];
+
+        // ==========================================================================
+        // LOGIC - DO NOT EDIT BELOW UNLESS YOU KNOW JAVASCRIPT
+        // ==========================================================================
+
+        const projectsGrid = document.getElementById('projects-grid');
+        
+        // Render Project Cards (Home Page)
+        projectsData.forEach(project => {
+            const card = document.createElement('div');
+            card.className = "bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col";
+            card.innerHTML = `
+                <div class="p-6 flex-grow">
+                    <div class="text-xs font-bold text-primary uppercase tracking-wider mb-2">${project.category}</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">${project.title}</h3>
+                    <p class="text-slate-600 text-sm mb-4 line-clamp-2">${project.description}</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${project.tags.slice(0, 3).map(tag => `<span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs text-slate-500">${tag}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="bg-white p-4 border-t border-slate-100 mt-auto">
+                    <button onclick="openModal(${project.id})" class="text-primary font-semibold text-sm hover:text-primaryDark flex items-center group w-full justify-between">
+                        View Details <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            `;
+            projectsGrid.appendChild(card);
+        });
+        
+        // Refresh Icons after dynamic content
+        lucide.createIcons();
+
+        // Modal Logic
+        const modal = document.getElementById('project-modal');
+        
+        // Elements to update inside Modal
+        const mCategory = document.getElementById('modal-category');
+        const mTitle = document.getElementById('modal-title');
+        const mSummary = document.getElementById('modal-summary');
+        const mRole = document.getElementById('modal-role');
+        const mTech = document.getElementById('modal-tech');
+        const mTimeline = document.getElementById('modal-timeline');
+        const mDesc = document.getElementById('modal-description');
+        const mAchievements = document.getElementById('modal-achievements');
+        const mTags = document.getElementById('modal-tags');
+
+        function openModal(id) {
+            const project = projectsData.find(p => p.id === id);
+            if (!project) return;
+
+            // Populate Text Fields
+            mCategory.textContent = project.category;
+            mTitle.textContent = project.title;
+            mSummary.textContent = project.subtitle;
+            mRole.textContent = project.role;
+            mTech.textContent = project.techStack;
+            mTimeline.textContent = project.timeline;
+            mDesc.textContent = project.description;
+
+            // Populate Achievements
+            mAchievements.innerHTML = project.achievements.map(ach => `
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex gap-4">
+                    <div class="shrink-0 mt-1">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-accentGreen fill-green-100"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-1">${ach.title}</h4>
+                        <p class="text-sm text-slate-600">${ach.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Populate Tags
+            mTags.innerHTML = project.tags.map(tag => 
+                `<span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold border border-blue-100">${tag}</span>`
+            ).join('');
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            lucide.createIcons(); // Re-render icons for new content
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close on 'Escape' key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && !modal.classList.contains('hidden')) closeModal();
+        });
+        
+        // Mobile Menu Logic
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const links = document.querySelectorAll('.mobile-link');
+        
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        links.forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // Close menu when a link is clicked
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        });
     </script>
 </body>
 </html>
